@@ -23,16 +23,24 @@ WHERE c.Name = 'Appliances' OR c.Name = 'Games';
 
 /* joins: find the product name, total # sold, and total price sold,
  for Eagles: Hotel California --You may need to use SUM() */
-SELECT p.Name, Sum(s.Quantity) as 'Total Sold', Sum(s.Quantity * s.PricePerUnit) as 'Total Price'
+ SELECT p.Name as "Product Name", Sum(s.quantity) as "Total Units Sold", 
+Sum(s.quantity * s.PricePerUnit) as "Total Price Per Unit"
 FROM products as p
-INNER JOIN sales as s on s.ProductID = p.ProductID
-WHERE p.Name LIKE '%hotel%california%';
+INNER JOIN sales as s
+ON p.ProductID = s.ProductID
+WHERE p.ProductID = 97;
+ -- SELECT p.Name, sum(s.Quantity) as "Total Sales", sum(s.Quantity * s.PricePerUnit) as "Total Price" from products as p
+--  INNER JOIN sales as s
+--  on p.ProductID = s.ProductID
+--  WHERE Name like "%Hotel%";
+/*INNER JOIN products as p on s.ProductID = p.ProductID
+WHERE p.Name LIKE "%hotel%";*/
 
 /* joins: find Product name, reviewer name, rating, and comment on the Visio TV. (only return for the lowest rating!) */
 SELECT p.Name, r.Reviewer, r.Rating, r.Comment
 FROM products as p
-INNER JOIN reviews as r ON r.ProductID = p.Product
-WHERE p.Name = '%visio%' AND r.Rating = 1;
+INNER JOIN reviews as r ON p.ProductID = r.ProductID
+WHERE p.ProductID = 857 AND r.Rating = 1;
 
 -- ------------------------------------------ Extra - May be difficult
 /* Your goal is to write a query that serves as an employee sales report.
